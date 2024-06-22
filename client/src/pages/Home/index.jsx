@@ -1,11 +1,14 @@
 import React from 'react'
 import BasicChart from './components/Basic'
+import PieChartDemo from './components/pie'
 
 const HomePage= () => {
   return (
-    <div>
+    <div className="w-full flex flex-wrap ">
         <BasicChart/>
-    </div>
+
+        <PieChartDemo/>
+        </div>
   )
 }
 
