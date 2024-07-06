@@ -3,8 +3,8 @@ import { InputText } from 'primereact/inputtext';
 import { z } from 'zod';
 import { Button } from 'primereact/button';
 import { FaRegEye, FaRegEyeSlash } from 'react-icons/fa';
-import { Link } from 'react-router-dom';
-
+import { Link, useNavigate } from 'react-router-dom';
+import { useRegisterUserMutation } from '../queries/Auth.query';
 const Register = () => {
   const [formData, setFormData] = useState({
     name:"",
@@ -13,6 +13,8 @@ const Register = () => {
   });
   const [error, setError] = useState({});
   const [showPassword, setShowPassword] = useState(false);
+  const [registerUser,registerUserResponse]=useRegisterUserMutation();
+  const navigate=useNavigate();
 
   const formValidation = z.object({
     name:z.string(),
@@ -25,11 +27,20 @@ const Register = () => {
     setFormData({ ...formData, [name]: value });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async(e) => {
     e.preventDefault();
     try {
       formValidation.parse(formData);
-      console.log(formData);
+      const {data,error}=await registerUser(formData);
+      if(error){
+        console.log(error.data.message);
+        return
+      }
+
+      localStorage.setItem('token',data.userObject.token);
+      navigate('/');
+     
+      
     } catch (error) {
       if (error instanceof z.ZodError) {
         const errorMessage = error.errors.reduce((acc, cur) => {

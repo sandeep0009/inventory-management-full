@@ -3,7 +3,9 @@ import { InputText } from 'primereact/inputtext';
 import { z } from 'zod';
 import { Button } from 'primereact/button';
 import { FaRegEye, FaRegEyeSlash } from 'react-icons/fa';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { useLoginUserMutation } from '../queries/Auth.query';
+
 
 const Login = () => {
   const [formData, setFormData] = useState({
@@ -12,6 +14,8 @@ const Login = () => {
   });
   const [error, setError] = useState({});
   const [showPassword, setShowPassword] = useState(false);
+  const [loginUser,setloginUser]=useLoginUserMutation();
+  const navigate=useNavigate();
 
   const formValidation = z.object({
     email: z.string().email("invalid email address"),
@@ -23,11 +27,19 @@ const Login = () => {
     setFormData({ ...formData, [name]: value });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit =async (e) => {
     e.preventDefault();
     try {
       formValidation.parse(formData);
-      console.log(formData);
+      const {data,error}=await loginUser(formData);
+      localStorage.setItem('token',data.userLoginDetails.token);
+      console.log(data)
+      if(error){
+        console.log(error.data.message);
+        return
+      }
+      navigate('/');
+     
     } catch (error) {
       if (error instanceof z.ZodError) {
         const errorMessage = error.errors.reduce((acc, cur) => {

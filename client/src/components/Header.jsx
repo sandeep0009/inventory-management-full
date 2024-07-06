@@ -4,6 +4,7 @@ import { setToggle, collapseSideBar } from '../slice/Sidebar.slice';
 import { HiOutlineMenuAlt3 } from "react-icons/hi";
 import { IoLogOutOutline } from "react-icons/io5";
 import { useNavigate } from 'react-router-dom';
+import { removeUser } from '../slice/userSlice';
 
 const Header = () => {
   const dispatch = useDispatch();
@@ -12,6 +13,9 @@ const Header = () => {
   const sidebarHandler = () => dispatch(collapseSideBar());
   const sidebarHandlerToggle = () => dispatch(setToggle());
   const logoutHandler = () => {
+    localStorage.removeItem("token");
+    dispatch(removeUser())
+
     navigate('/login');
   };
 

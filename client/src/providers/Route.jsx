@@ -3,6 +3,9 @@ import App from "../App"
 import Login from "../pages/Login"
 import Register from "../pages/Register"
 import HomePage from "../pages/Home";
+import Inovoice from "../pages/Invoice/Inovoice";
+import Orders from "../pages/Orders/Orders";
+import User from "../pages/user/User";
 export const Router=createBrowserRouter([
     {
         path:'/',
@@ -11,6 +14,19 @@ export const Router=createBrowserRouter([
             {
                 path:'/home',
                 Component:HomePage
+            },
+            {
+                path:'/invoice',
+                Component:Inovoice
+            }
+            ,
+            {
+                path:'/orders',
+                Component:Orders
+            },
+            {
+                path:'/user',
+                Component:User
             }
         ]
     },
@@ -21,5 +37,6 @@ export const Router=createBrowserRouter([
     {
         path:'/register',
         Component:Register
-    }
+    },
+   
 ])
