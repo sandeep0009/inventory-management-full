@@ -29,9 +29,8 @@ export const ConsumerQuery = createApi({
       }),
       getAllConsumers:builder.query({
         query:(obj)=>({
-          url:'/api/get-all-consumers',
+          url:`/api/get-all-consumers?query=${obj.query}&page=${obj.page}`,
           method:'GET',
-          body:obj,
           headers:{
             'Authorization': 'Bearer ' + localStorage.getItem("token")
         }
