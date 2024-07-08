@@ -1,6 +1,8 @@
 import axios from "axios";
+import {  useNavigate } from "react-router-dom";
+import { BACKEND_URL } from "./backendUrl";
 
-const BASE_URL = 'http://localhost:3000';
+const BASE_URL = BACKEND_URL;
 
 export const axiosinstance = axios.create({
   baseURL: BASE_URL,
@@ -11,6 +13,9 @@ axiosinstance.interceptors.request.use(
     const token = localStorage.getItem('token');
     if (token) {
       config.headers.Authorization = `Bearer ${token}`;
+    } else {
+    const navigate=useNavigate()
+      navigate('/login');
     }
     return config;
   },
@@ -18,4 +23,5 @@ axiosinstance.interceptors.request.use(
     return Promise.reject(error);
   }
 );
+
 
