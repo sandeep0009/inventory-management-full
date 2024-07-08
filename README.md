@@ -47,7 +47,7 @@ This project is an Inventory Management System designed to track and manage inve
    - Navigate to the `client` folder.
    - Install frontend dependencies using `npm install`.
 
-5. **Deploymed Link**: `inventory-management-full-m3ay.vercel.app` 
+5. **Project is deployed On Vercel**: `inventory-management-full-m3ay.vercel.app` 
 
 
 
