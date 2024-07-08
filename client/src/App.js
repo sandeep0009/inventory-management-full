@@ -1,36 +1,48 @@
-import { Outlet } from "react-router-dom";
-import Header from "./components/Header";
-import MainLayout from "./layout/MainLayout";
-import { axiosinstance } from "./utils/axiosinstance";
-import { BACKEND_URL } from "./utils/backendUrl";
-import { useEffect } from "react";
-import { useDispatch } from "react-redux";
-import { setUser } from "./slice/userSlice";
-
-
+import { Outlet, useNavigate } from 'react-router-dom';
+import Header from './components/Header';
+import MainLayout from './layout/MainLayout';
+import { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { setUser } from './slice/userSlice';
+import { axiosinstance } from './utils/axiosinstance';
 function App() {
+  const [loading, setLoading] = useState(true);
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const selector = useSelector(state => state.user); 
 
-  const dispatch=useDispatch()
-useEffect(()=>{
-  const fetchUser=async()=>{
-    const res=await axiosinstance.get(BACKEND_URL+'/api/profile');
-   console.log(res.data.userLoginDetails.data)
-   dispatch(setUser(res.data.userLoginDetails.data))
-  
-   
+  useEffect(() => {
+    const fetchUser = async () => {
+      try {
+        const { data } = await axiosinstance.get('/api/profile'); 
+        dispatch(setUser(data.user));
+        setLoading(false);
+      } catch (error) {
+        console.log(error);
+        navigate('/login');
+      }
+    };
+
+    const token = localStorage.getItem('token') || '';
+
+    if (!token) {
+      navigate('/login');
+    } else {
+      fetchUser();
+    }
+  }, [dispatch, navigate]);
+
+  if (loading) {
+    return <div>Loading....</div>;
   }
-  fetchUser();
-})
-
 
   return (
-    <div className="App">
-     <Header/>
+    <>
+      <Header />
       <MainLayout>
-      <Outlet/>
-      </MainLayout> 
-     
-    </div>
+        <Outlet />
+      </MainLayout>
+    </>
   );
 }
 
