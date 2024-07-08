@@ -1,5 +1,5 @@
-import UserService from "../services/userService.js";
 import { CatchAsync } from "../utils/catchSync.js";
+import UserService from "../services/userService.js";
 
 class UserController{
 

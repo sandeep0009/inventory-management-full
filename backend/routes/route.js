@@ -1,8 +1,8 @@
 import { Router } from 'express';
-import UserController from '../controller/user.controller.js';
 import { vaildateMiddleWare } from '../middleware/auth.middleware.js';
 import ConsumerController from '../controller/consumer.controller.js';
 import OrderController from '../controller/order.controller.js';
+import UserController from '../controller/user.controller.js';
 
 const router = Router();
 

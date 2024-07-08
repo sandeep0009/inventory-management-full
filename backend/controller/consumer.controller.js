@@ -1,6 +1,5 @@
-import ConsumerService from "../services/consumer.service.js"
-import { CatchAsync } from "../utils/catchSync.js"
-
+import ConsumerService from "../services/consumer.service.js";
+import { CatchAsync } from "../utils/catchSync.js";
 class ConsumerController{
 
    static ConsumerRegister=CatchAsync(async(req,res)=>{

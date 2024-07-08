@@ -1,6 +1,6 @@
 import CustomError from "../errors/customError.js";
-import profile from "../models/profile.model.js";
 import user from "../models/user.schema.js";
+import profile from "../models/profile.model.js";
 import { generateToken } from "../utils/token.js";
 
 class UserService{

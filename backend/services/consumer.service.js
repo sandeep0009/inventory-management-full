@@ -1,6 +1,6 @@
 import CustomError from "../errors/customError.js";
 import consumers from "../models/consumer.model.js";
-import orders from "../models/order.model.js"
+import orders from "../models/order.model.js";
 
 class ConsumerService {
     static async CreateConsumerService(user, body) {

@@ -1,7 +1,6 @@
 import { verifyToken } from "../utils/token.js";
-import CustomError from "../errors/customError.js";
 import jwt from "jsonwebtoken"
-
+import CustomError from "../errors/customError.js";
 const JWT_Secret="536478rijhgdfjk"
 
 

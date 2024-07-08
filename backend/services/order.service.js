@@ -1,5 +1,5 @@
 import CustomError from "../errors/customError.js";
-import orders from "../models/order.model.js"
+import orders from "../models/order.model.js";
 export class OrderService {
 
     static async AddOrderService(user,body) {

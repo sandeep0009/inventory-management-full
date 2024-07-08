@@ -1,6 +1,5 @@
 import mongoose from "mongoose";
-import CustomError from "../errors/customError.js";
-
+import CustomError from "../errors/customError.js"
 export const connectionDb=async()=>{
     try {
     
@@ -11,7 +10,8 @@ export const connectionDb=async()=>{
     } catch (error) {
         console.log(error);
         process.exit(1);
-        throw new CustomError(404,"error in database connection")
+        throw new CustomError(404,"not found in database")
+     
       
         
     }

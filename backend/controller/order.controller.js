@@ -1,5 +1,5 @@
-import { OrderService } from "../services/order.service.js"
-import { CatchAsync } from "../utils/catchSync.js"
+import { OrderService } from "../services/order.service.js";
+import { CatchAsync } from "../utils/catchSync.js";
 
 class OrderController{
 
