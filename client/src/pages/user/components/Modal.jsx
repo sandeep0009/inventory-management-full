@@ -2,15 +2,19 @@ import React, { useState } from "react";
 import { Dialog } from 'primereact/dialog';
 import { Calendar } from 'primereact/calendar';
 import { zodVerification } from "../../../utils/zodVerfication";
+import { useRegisterConsumerMutation } from "../../../queries/Consumer.query";
 
 export default function Modal({ visible, setVisible }) {
     const [formData, setFormData] = useState({
         name: "",
         email: "",
         address: "",
-        dob: null
+        dob: null,
+        mobile:""
     });
     const [errors, setErrors] = useState({});
+
+    const [registerConsumer,setRegisterConsumer]=useRegisterConsumerMutation();
 
     const handleInputChange = (e) => {
         const { name, value } = e.target;
@@ -31,6 +35,8 @@ export default function Modal({ visible, setVisible }) {
         e.preventDefault();
         try {
             zodVerification(formData);
+            const res=await registerConsumer(formData);
+            console.log(res.data);
             setErrors({}); 
         } catch (error) {
             if (error.errors) {
@@ -45,7 +51,7 @@ export default function Modal({ visible, setVisible }) {
 
     return (
         <div className="card flex justify-content-center">
-            <Dialog header="Add User" position="top" visible={visible} style={{ width: '50vw' }} onHide={() => setVisible(false)}>
+            <Dialog draggable={false} header="Add User" position="top" visible={visible} style={{ width: '50vw' }} onHide={() => setVisible(false)}>
                 <form onSubmit={handleOnSubmit}>
                     <div className="mb-4">
                         <label htmlFor="name">Name</label>
@@ -70,6 +76,18 @@ export default function Modal({ visible, setVisible }) {
                             onChange={handleInputChange}
                         />
                         {errors.email && <span className="text-red-500">{errors.email}</span>}
+                    </div>
+                    <div className="mb-4">
+                        <label htmlFor="name">Mobile</label>
+                        <input
+                            type="text"
+                            name="mobile"
+                            className="w-full border outline-none"
+                            placeholder="Enter the user name"
+                            value={formData.mobile}
+                            onChange={handleInputChange}
+                        />
+                        {errors.mobile && <span className="text-red-500">{errors.mobile}</span>}
                     </div>
                     <div className="mb-4">
                         <label htmlFor="address">Address</label>
