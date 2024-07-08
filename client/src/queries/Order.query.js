@@ -35,7 +35,19 @@ export const OrderQuery = createApi({
         }),
 
       }),
-      
+
+      getInvoiceOrder:builder.query({
+        query:(_id)=>({
+          url:`/api/get-order-invoice/`+_id,
+          method:'GET',
+          headers:{
+            'Authorization': 'Bearer ' + localStorage.getItem("token")
+        }
+        }),
+
+      }),
+
+     
 
   
     }),
@@ -43,4 +55,4 @@ export const OrderQuery = createApi({
 
 
 
-export const {useAddOrderMutation,useDeleteOrderMutation,useGetAllOrderQuery}=OrderQuery
+export const {useAddOrderMutation,useDeleteOrderMutation,useGetAllOrderQuery,useGetInvoiceOrderQuery}=OrderQuery

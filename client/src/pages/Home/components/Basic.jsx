@@ -1,50 +1,64 @@
-
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { Chart } from 'primereact/chart';
+import { useLocation } from 'react-router-dom';
+import { useGetConsumerDashboardQuery } from '../../../queries/Consumer.query';
 
 export default function BasicChart() {
+    const { data, isError, isLoading } = useGetConsumerDashboardQuery({});
+    const location = useLocation();
+
     const [chartData, setChartData] = useState({});
     const [chartOptions, setChartOptions] = useState({});
 
     useEffect(() => {
-        const data = {
-            labels: ['Q1', 'Q2', 'Q3', 'Q4'],
+        if (!data) {
+            return;
+        }
+
+        const chartData = {
+            labels: ['Users', 'Orders', 'Sell'],
             datasets: [
                 {
-                    label: 'Sales',
-                    data: [540, 325, 702, 620],
+                    label: 'Total',
+                    data: [data.consumers, data.orders, data.sell],
                     backgroundColor: [
                         'rgba(255, 159, 64, 0.2)',
                         'rgba(75, 192, 192, 0.2)',
                         'rgba(54, 162, 235, 0.2)',
-                        'rgba(153, 102, 255, 0.2)'
-                      ],
-                      borderColor: [
+                    ],
+                    borderColor: [
                         'rgb(255, 159, 64)',
                         'rgb(75, 192, 192)',
                         'rgb(54, 162, 235)',
-                        'rgb(153, 102, 255)'
-                      ],
-                      borderWidth: 1
-                }
-            ]
+                    ],
+                    borderWidth: 1,
+                },
+            ],
         };
+
         const options = {
             scales: {
                 y: {
-                    beginAtZero: true
-                }
-            }
+                    beginAtZero: true,
+                },
+            },
         };
 
-        setChartData(data);
+        setChartData(chartData);
         setChartOptions(options);
-    }, []);
+    }, [data, location]);
+
+    if (isError) {
+        return <div>Something went wrong</div>;
+    }
+
+    if (isLoading) {
+        return <div>Loading...</div>;
+    }
 
     return (
-        <div className="card">
-            <Chart type="bar" width='100' data={chartData} options={chartOptions} />
+        <div className="w-full lg:w-1/2">
+            <Chart type="bar" data={chartData} options={chartOptions} />
         </div>
-    )
+    );
 }
-        

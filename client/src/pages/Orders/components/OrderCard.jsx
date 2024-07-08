@@ -4,9 +4,11 @@ import {  FaRegTrashAlt } from 'react-icons/fa'
 import { Button } from 'primereact/button'
 import { BsPrinter } from 'react-icons/bs'
 import { useDeleteOrderMutation } from '../../../queries/Order.query'
+import ShowAndPrint from './ShowAndPrint'
 
 const OrderCard = ({ data, id }) => {
 
+    console.log("orderCard",data.consumer.name);
 
 
     const [DeleteConsumer, DeleteConsumerResponse] = useDeleteOrderMutation()
@@ -63,7 +65,7 @@ const OrderCard = ({ data, id }) => {
                      onClick={() => deleteHandler(data._id)} title="delete " className="p-4 bg-red-500 text-white rounded-sm mx-2"><FaRegTrashAlt className="text-xl" /> </Button>
                 </td>
             </tr>
-            {/* <ShowAndPrintModel id={data._id} visible={visible} setVisible={setVisible}  /> */}
+            <ShowAndPrint id={data._id} visible={visible} setVisible={setVisible}  />
             <ConfirmDialog id='order.queruies' acceptClassName='' className=' ' contentClassName='py-2 ' closable />
 
         </>

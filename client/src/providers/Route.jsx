@@ -12,7 +12,7 @@ export const Router=createBrowserRouter([
         Component:App,
         children:[
             {
-                path:'/home',
+                path:'/',
                 Component:HomePage
             },
             {

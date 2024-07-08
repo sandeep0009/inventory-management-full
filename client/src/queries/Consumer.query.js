@@ -38,6 +38,7 @@ export const ConsumerQuery = createApi({
         providesTags:['getAllConsumers']
 
       }),
+    
       getAllSearchConsumer:builder.query({
         query:(obj)=>({
           url:`/api/get-search-user`,
@@ -58,6 +59,7 @@ export const ConsumerQuery = createApi({
         }),
        
       }),
+      
       updateConsumerById:builder.mutation({
         query:(obj,_id)=>({
           url:'/api/update-consumer/'+_id,
@@ -66,12 +68,27 @@ export const ConsumerQuery = createApi({
           headers:{
             'Authorization': 'Bearer ' + localStorage.getItem("token")
         }
+        }),      
+      }),
+      
+      getConsumerDashboard:builder.query({
+        query:()=>({
+          url:`/api/`,
+          method:'GET',
+          headers:{
+            'Authorization': 'Bearer ' + localStorage.getItem("token")
+        }
         }),
 
-      })
+      }),
+    
+      
     }),
   })
 
 
 
-export const {useRegisterConsumerMutation,useDeleteConsumerMutation,useGetAllConsumersQuery,useUpdateConsumerByIdMutation,useGetConsumerByIdQuery,useGetAllSearchConsumerQuery}=ConsumerQuery
+export const {useRegisterConsumerMutation,useDeleteConsumerMutation,
+  useGetAllConsumersQuery,useUpdateConsumerByIdMutation,
+  useGetConsumerByIdQuery,useGetAllSearchConsumerQuery,
+useGetConsumerDashboardQuery}=ConsumerQuery
